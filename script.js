@@ -175,23 +175,128 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-const bulbSwitch = document.querySelector('#bulbSwitch');
-const bulb = document.querySelector('#bulb')
+// const bulbSwitch = document.querySelector('#bulbSwitch');
+// const bulb = document.querySelector('#bulb')
 
-// console.log(bulbSwitch);
-bulbSwitch.addEventListener('click',function(){
-      // for image tag, scr is a property so we need to change the src //
-      // console.log(bulb.src);
-      //in src we have the source of image and we will change the source //
-      if (bulb.src.match('off')){
-            bulb.src = '/bulb-on.gif'
-            bulbSwitch.innerHTML = 'Turn Off'
-      }else{
-            bulb.src ='/pic_bulboff.gif'
-            bulbSwitch.innerHTML = 'Turn On'
-      }
-      // bulb.src = '/bulb-on.gif'          
+// // console.log(bulbSwitch);
+// bulbSwitch.addEventListener('click',function(){
+//       // for image tag, scr is a property so we need to change the src //
+//       // console.log(bulb.src);
+//       //in src we have the source of image and we will change the source //
+//       if (bulb.src.match('off')){
+//             bulb.src = '/bulb-on.gif'
+//             bulbSwitch.innerHTML = 'Turn Off'
+//       }else{
+//             bulb.src ='/pic_bulboff.gif'
+//             bulbSwitch.innerHTML = 'Turn On'
+//       }
+//       // bulb.src = '/bulb-on.gif'          
+// })
+
+
+
+
+//===========================END OF PROJECT=====================================================================
+
+
+
+//////////////////////////////////////////////////////////////////////////
+//                            
+//                  ONLINE APIs
+//                                         
+//////////////////////////////////////////////////////////////////////////
+
+
+// Now we will use online APIs to get some images from the internet
+
+// we will take data from 'https://jsonplaceholder.typicode.com/albums/1/photos'
+// and will append in div with id='root'
+
+const root = document.querySelector('#root')
+const button = document.querySelector('button')
+
+
+function createItem(item){
+
+      //card created 
+      const card = document.createElement('div')
+      card.classList.add('card')
+
+
+      //creating photo
+      const photo = document.createElement('img')
+      photo.src = item.thumbnailURL
+      //creating title for the photo
+      const title = document.createElement('h4')
+      title.innerHTML = item.title
+
+      //add both to the card
+      card.appendChild(photo)
+      card.appendChild(title)
+
+      //now we need to append the card in the root div in html
+      root.appendChild(card)
+
+}
+
+
+
+//Now we will request to our server after getting div
+function displayImages(items){
+      items.forEach(function(item){      //not items //
+            createItem(item)
+      })
+      // console.log(items);
+      
+
+
+
+}
+
+//we have to get images after the click of button //
+
+button.addEventListener('click',function(){
+      fetch('https://jsonplaceholder.typicode.com/albums/1/photos')
+      .then((res) => res.json())
+      .then((items) =>{
+      displayImages(items)
+      })
+
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
